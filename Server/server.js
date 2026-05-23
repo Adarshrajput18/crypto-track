@@ -9,7 +9,21 @@ const app = express();
 
 app.use(
 	cors({
-		origin: process.env.CLIENT || "https://cryptotrack-ultimez.vercel.app",
+		origin: (origin, callback) => {
+			const allowedOrigins = [
+				process.env.CLIENT,
+				"http://localhost:5173",
+				"http://127.0.0.1:5173",
+				"http://localhost:5174",
+				"http://127.0.0.1:5174",
+			];
+
+			if (!origin || allowedOrigins.includes(origin)) {
+				callback(null, true);
+			} else {
+				callback(new Error("Not allowed by CORS"));
+			}
+		},
 		credentials: true,
 	})
 );
@@ -20,6 +34,20 @@ app.use(passport.initialize());
 
 app.get("/", (req, res) => {
 	return res.send("API is running");
+});
+
+app.get("/currency", async (req, res) => {
+	try {
+		const response = await fetch("https://api.frankfurter.app/latest?from=USD");
+		if (!response.ok) {
+			return res.status(response.status).json({ error: "Failed to fetch currency rates" });
+		}
+
+		const data = await response.json();
+		return res.json(data);
+	} catch (err) {
+		return res.status(500).json({ error: err.message });
+	}
 });
 
 app.post("/register", async (req, res) => {

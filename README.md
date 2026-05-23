@@ -171,4 +171,4 @@ The application should now be running at **http://localhost:5173**.
 
 ## Contact
 
-For any questions or suggestions, please reach out to [joy.mascarenhas@outlook.com](mailto:joy.mascarenhas@outlook.com).
+For any questions or suggestions, please reach out to [ak4379499@gmail.com](mailto:ak4379499@gmail.com).
