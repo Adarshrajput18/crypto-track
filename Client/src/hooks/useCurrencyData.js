@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+import { BACKEND_URL as API_URL } from "../constants";
 
 export default function useCurrencyData() {
 	const [currencyData, setCurrencyData] = useState({ rates: {} });
